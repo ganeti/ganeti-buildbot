@@ -1,0 +1,18 @@
+This hosts slack (https://code.google.com/p/slack/) roles for the
+Ganeti external buildbot hosts.
+
+Where do the files come from?
+
+- .bashrc files are copies from a live Debian installation
+- files in
+  ./roles/buildmaster/files/srv/buildbot/masters/ganeti/public_html
+  are, except for favicon.ico (which is Ganeti specific) taken from a
+  live Buildbot installation (Buildbot itself is also GPL v2, but
+  noting this down for reference).
+- parts of master.cfg were taken out of the sample buildbot
+  configuration file.
+- the other files are Google-authored, and the GPL v2 license applies
+  to them, as noted in the headers
+
+For more information about these slack roles, see
+https://code.google.com/p/ganeti/wiki/BuildBot.

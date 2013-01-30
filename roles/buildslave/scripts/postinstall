@@ -1,0 +1,118 @@
+#!/bin/bash
+
+# Copyright (C) 2013 Google Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+set -e
+
+export DEBIAN_FRONTEND=noninteractive
+umask 0022
+
+# slack doesn't seem to define $HOME
+
+if [ -z "$HOME" ]; then
+  export HOME=/root # yes, hardcoded
+fi
+
+case "$1" in
+  buildslave.squeeze*)
+    # do not install libghc6-network-dev, since it's too old, and just
+    # confuses the dependencies
+    apt-get install -qq -y \
+      autoconf automake \
+      ghc cabal-install \
+      libghc6-curl-dev \
+      libghc6-parallel-dev \
+      libghc6-json-dev \
+      libghc6-text-dev \
+      libghc6-vector-dev \
+      libpcre3-dev \
+      hlint hscolour pandoc \
+      graphviz socat qemu-utils \
+      python-docutils \
+      python-simplejson \
+      python-pyparsing \
+      python-pyinotify \
+      python-pycurl \
+      python-ipaddr \
+      python-paramiko
+
+    apt-get install -qq -y python-dev build-essential
+
+    easy_install \
+      logilab-astng==0.20.1 \
+      logilab-common==0.50.3 \
+      pylint==0.21.1
+
+    easy_install \
+      sphinx==1.1.3 \
+      pep8==1.2 \
+      coverage==3.4 \
+      bitarray==0.8.0
+
+    if [ ! -f $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -o -n "$(find $HOME/.cabal -path $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -mtime +2)" ]; then
+      cabal update
+    fi
+
+    cabal install --global \
+      regex-pcre==0.94.2 \
+      hinotify==0.3.2 \
+      hslogger==1.1.4 \
+      quickcheck==2.4.2 \
+      test-framework==0.6 \
+      test-framework-hunit==0.2.7 \
+      test-framework-quickcheck2==0.2.12.1 \
+      attoparsec==0.10.1.1 \
+      temporary==1.1.2.3 \
+      crypto==4.2.4 \
+    ;;
+  buildslave.wheezy*)
+    apt-get install -y \
+      autoconf automake \
+      ghc ghc-haddock \
+      libghc-network-{dev,prof} \
+      libghc-test-framework{,-hunit,-quickcheck2}-{dev,prof} \
+      libghc-json-{dev,prof} \
+      libghc-curl-{dev,prof} \
+      libghc-hinotify-{dev,prof} \
+      libghc-parallel-{dev,prof} \
+      libghc-utf8-string-{dev,prof} \
+      libghc-hslogger-{dev,prof} \
+      libghc-crypto-{dev,prof} \
+      libghc-regex-pcre-{dev,prof} \
+      libghc-attoparsec-{dev,prof} \
+      libghc-vector-{dev,prof} \
+      libghc-temporary-{dev,prof} \
+      libpcre3 libpcre3-dev \
+      hscolour hlint pandoc \
+      python-sphinx python-epydoc graphviz \
+      openssl python-openssl \
+      python-pyparsing python-simplejson \
+      python-pyinotify python-pycurl \
+      python-paramiko \
+      python-bitarray python-ipaddr \
+      qemu-utils \
+      python-coverage pep8 \
+      socat fping fakeroot \
+      shelltestrunner \
+      pylint
+    ;;
+  *)
+    echo "Unknown role '$1'" 1>&2
+    exit 1
+    ;;
+esac

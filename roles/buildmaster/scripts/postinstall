@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Copyright (C) 2013 Google Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+set -e
+shopt -s nullglob
+
+export DEBIAN_FRONTEND=noninteractive
+umask 0022
+
+declare -r BB_ROOT=/srv/buildbot
+
+for dir in $BB_ROOT/masters/*; do
+  if test -d $dir/templates && ! test -L $dir/templates; then
+    rm -vrf $dir/templates
+  fi
+
+  ln -Tfs ../../templates $dir/templates
+
+  if test -d $dir/public_html; then
+    rm -vrf $dir/public_html
+  fi
+
+done
+
+a2dismod authz_default authz_user authz_groupfile authn_file
+a2enmod proxy_http
+a2dissite default
+a2dissite default-ssl || true
+a2ensite buildbot
+invoke-rc.d apache2 reload
