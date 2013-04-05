@@ -70,17 +70,30 @@ case "$1" in
     fi
 
     cabal install --global \
+      network==2.3 \
       regex-pcre==0.94.2 \
       hinotify==0.3.2 \
       hslogger==1.1.4 \
-      quickcheck==2.4.2 \
-      test-framework==0.6 \
-      test-framework-hunit==0.2.7 \
-      test-framework-quickcheck2==0.2.12.1 \
+      quickcheck==2.5.1.1 \
       attoparsec==0.10.1.1 \
-      temporary==1.1.2.3 \
       crypto==4.2.4 \
-      snap-server==0.8.1 \
+      MonadCatchIO-transformers==0.2.2.0 \
+      mtl==2.0.1.0 \
+      hashable==1.1.2.0 \
+      case-insensitive==0.3 \
+      parsec==3.0.1 \
+      network==2.3 \
+      snap-server==0.8.1
+
+    cabal install --global \
+      hunit==1.2.5.2 \
+      happy==1.18.10 \
+      hlint==1.8.34 \
+      hscolour==1.20.3 \
+      temporary==1.1.2.3 \
+      test-framework==0.6.1 \
+      test-framework-hunit==0.2.7 \
+      test-framework-quickcheck2==0.2.12.3
     ;;
   buildslave.wheezy*)
     apt-get install -y \
