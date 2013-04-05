@@ -49,6 +49,7 @@ case "$1" in
       python-pyinotify \
       python-pycurl \
       python-ipaddr \
+      python-yaml \
       python-paramiko
 
     apt-get install -qq -y python-dev build-essential
@@ -79,6 +80,7 @@ case "$1" in
       attoparsec==0.10.1.1 \
       temporary==1.1.2.3 \
       crypto==4.2.4 \
+      snap-server==0.8.1 \
     ;;
   buildslave.wheezy*)
     apt-get install -y \
@@ -97,13 +99,14 @@ case "$1" in
       libghc-attoparsec-{dev,prof} \
       libghc-vector-{dev,prof} \
       libghc-temporary-{dev,prof} \
+      libghc-snap-server-{dev,prof} \
       libpcre3 libpcre3-dev \
       hscolour hlint pandoc \
       python-sphinx python-epydoc graphviz \
       openssl python-openssl \
       python-pyparsing python-simplejson \
       python-pyinotify python-pycurl \
-      python-paramiko \
+      python-paramiko python-yaml \
       python-bitarray python-ipaddr \
       qemu-utils \
       python-coverage pep8 \
