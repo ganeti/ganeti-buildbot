@@ -50,7 +50,8 @@ case "$1" in
       python-pycurl \
       python-ipaddr \
       python-yaml \
-      python-paramiko
+      python-paramiko \
+      python-mock
 
     apt-get install -qq -y python-dev build-essential
 
@@ -121,6 +122,7 @@ case "$1" in
       python-pyinotify python-pycurl \
       python-paramiko python-yaml \
       python-bitarray python-ipaddr \
+      python-mock \
       qemu-utils \
       python-coverage pep8 \
       socat fping fakeroot \
