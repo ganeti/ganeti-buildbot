@@ -129,6 +129,44 @@ case "$1" in
       shelltestrunner \
       pylint
     ;;
+  buildslave.fedora*)
+    yum install -q -y \
+    autoconf automake \
+    cabal-install cabal-dev \
+    fakeroot \
+    ghc \
+    ghc-json ghc-json-devel \
+    ghc-network ghc-network-devel \
+    ghc-parallel ghc-parallel-devel \
+    ghc-utf8-string ghc-utf8-string-devel \
+    graphviz \
+    hlint \
+    libcurl libcurl-devel \
+    pandoc \
+    pyOpenSSL \
+    pyparsing \
+    python-bitarray \
+    python-inotify \
+    python-mock \
+    python-ipaddr \
+    python-sphinx \
+    python-yaml \
+    python-lxml \
+    python-paramiko \
+    python-simplejson \
+    qemu-img \
+    socat
+
+    if [ ! -f $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -o -n "$(find $HOME/.cabal -path $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -mtime +2)" ]; then
+      cabal update
+    fi
+
+    cabal install --global \
+      curl==1.3.7 \
+      hscolour==1.20.3 \
+      shelltestrunner==1.3.1
+    
+    ;;
   *)
     echo "Unknown role '$1'" 1>&2
     exit 1

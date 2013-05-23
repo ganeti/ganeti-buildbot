@@ -22,11 +22,19 @@ set -e
 export DEBIAN_FRONTEND=noninteractive
 umask 0022
 
-apt-get install -qq -y vim make git bash-completion
-
-apt-get install -qq -y python-twisted
-
-apt-get install -qq -y python-setuptools
+case "$1" in
+  buildslave.fedora*)
+    yum install -q -y vim gcc make git bash
+    yum install -q -y python-twisted
+    yum install -q -y python-setuptools
+    yum install -q -y python-devel python-crypto pyOpenSSL zope
+    ;;
+  *)
+    apt-get install -qq -y vim make git bash-completion
+    apt-get install -qq -y python-twisted
+    apt-get install -qq -y python-setuptools
+  ;;
+esac
 
 case "$1" in
   buildslave.squeeze*)
@@ -40,6 +48,14 @@ case "$1" in
     ;;
   buildslave.wheezy*)
     apt-get install -qq -y buildbot-slave
+    ;;
+  buildslave.fedora*)
+    yum install -q -y buildbot-slave
+    if ! getent passwd buildbot >/dev/null; then
+      adduser --system \
+        --home /srv/buildbot --shell /bin/bash \
+        buildbot
+    fi
     ;;
   *)
     echo "Unknown role '$1'" 1>&2
