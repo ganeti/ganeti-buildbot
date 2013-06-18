@@ -49,6 +49,9 @@ case "$1" in
   buildslave.wheezy*)
     apt-get install -qq -y buildbot-slave
     ;;
+  buildslave.ubuntu*)
+    apt-get install -qq -y buildbot-slave
+    ;;
   buildslave.fedora*)
     yum install -q -y buildbot-slave
     if ! getent passwd buildbot >/dev/null; then
