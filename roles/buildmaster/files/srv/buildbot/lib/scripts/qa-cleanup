@@ -1,0 +1,84 @@
+#!/bin/bash
+
+set -e -u
+
+process_re='^(ganeti-.*|gnt-.*|kvm|socat|import-export)$'
+
+# Do this before killing processes, so ganeti-watcher won't restart daemons or
+# instances
+for dir in /var/lib/ganeti /srv/ganeti/vcluster; do
+  if [[ -e $dir ]]; then
+    echo "Cleaning up $dir..." >&2
+    rm -rvf $dir/*
+  fi
+done
+
+echo Killing daemons and other processes... >&2
+while pgrep "$process_re"; do
+  pkill -9 "$process_re" || :
+  sleep 1
+done
+
+echo Removing the master IP... >&2
+ip addr del "$MASTER_IP" dev "$MASTER_NETDEV" || :
+
+echo Removing virtual cluster IP addresses... >&2
+for addr in 192.0.2.{1..255}; do
+  ip addr del "$addr/32" dev "$MASTER_NETDEV" || :
+done
+
+echo Destroying Xen domains... >&2
+if type -p xm >/dev/null; then
+  xm list | awk '{ print $1 }' | grep -v -x -e Name -e Domain-0 | \
+  while read i; do
+    xm destroy $i
+  done
+fi
+
+# Retry a few times as there can be dependencies
+for ((i=0; i < 3; ++i)); do
+  # Remove unused mappings
+  dmsetup remove_all
+
+  echo Shutting down DRBD devices... >&2
+  for i in {0..255}; do
+    drbdsetup /dev/drbd$i down || :
+    # this relies on the fact that we create a DRBD 8.4 resource
+    # for each minor, and that they are always named as such
+    drbdsetup down resource$i || :
+  done
+
+  echo Umount left over mounts... >&2
+  awk '/^\/dev\/mapper\/[^ ]+ \/tmp\// { print $2 }' /proc/mounts | \
+  while read path; do
+    # Kill any process still using the mount point
+    fuser -km $path || :
+
+    umount -v $path || :
+  done
+done
+
+echo Removing logical volumes... >&2
+if vgs xenvg; then
+  lvremove -f xenvg
+fi
+
+echo Removing LVM archives... >&2
+rm -rf /etc/lvm/archive
+
+echo Removing file-based disk images... >&2
+rm -rvf /srv/ganeti/file-storage/*
+rm -rvf /srv/ganeti/shared-file-storage/*
+
+echo Removing QA OS definitions... >&2
+rm -rvf /srv/ganeti/os/TEMP-Ganeti-QA*
+
+echo Removing old backups... >&2
+rm -rvf /srv/ganeti/export/*
+
+# This way of cleaning blkid.tab is safe for both dapper and lucid
+echo Updating blkid.tab... >&2
+: > /etc/blkid.tab
+blkid
+
+echo Cleanup successful >&2

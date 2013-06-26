@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e -u
+
+# Keep in sync with "collect-logs" script
+find /var/log/ganeti -type f -print0 | xargs -0 -r rm -v

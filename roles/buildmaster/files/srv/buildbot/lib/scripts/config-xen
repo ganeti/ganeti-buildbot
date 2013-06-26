@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e -u
+
+xen_constants_path=""
+
+for p in "/usr/lib/xen/lib/python/xen/xend/XendConstants.py" "/usr/lib/xen-4.0/lib/python/xen/xend/XendConstants.py" "/usr/lib/xen-4.1/lib/python/xen/xend/XendConstants.py"; do
+  if test -f $p; then
+    xen_constants_path=$p
+  fi
+done
+
+if [ "x$xen_constants_path" = "x" ]; then
+  echo "Unable to find Xen constants file (XendConstants.py)"
+  exit 0
+fi
+
+tmpfile=$(mktemp)
+trap "rm -f $tmpfile" EXIT
+
+{
+  grep -v \
+       -e '^MINIMUM_RESTART_TIME[[:space:]].*=' \
+       < $xen_constants_path
+
+  # By default Xen only allows instances to restart every 60 seconds. With this
+  # change we remove this restriction as it can cause failures during testing.
+  echo 'MINIMUM_RESTART_TIME = 0'
+} > $tmpfile
+
+if ! diff -u $xen_constants_path $tmpfile; then
+  mv -v $tmpfile $xen_constants_path
+  /etc/init.d/xend restart || /etc/init.d/xen restart
+fi

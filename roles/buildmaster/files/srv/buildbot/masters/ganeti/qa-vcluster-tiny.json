@@ -1,0 +1,100 @@
+{
+  "name": "cluster",
+  "#rename": "disabled",
+
+  "# Virtual cluster": null,
+  "vcluster-master": "snf-69749.vm.okeanos.grnet.gr",
+  "vcluster-basedir": "/srv/ganeti/vcluster",
+
+  "cluster-init-args": ["--no-etc-hosts", "--no-drbd-storage"],
+
+  "enabled-hypervisors": "fake",
+  "enabled-disk-templates": "diskless",
+  "hypervisor-parameters": {},
+  "primary_ip_version": 4,
+
+  "os": "busybox",
+  "mem": "1G",
+  "maxmem": "1G",
+  "minmem": "512M",
+
+  "# Lists of disk sizes": null,
+  "disk": ["512M"],
+  "disk-growth": ["512M"],
+
+  "# Instance policy specs": null,
+  "ispec_mem_size_max": 1024,
+  "ispec_disk_size_min": 0,
+  "ispec_disk_count_min": 0,
+
+  "master-netdev": "lo",
+  "default-nicparams": { "mode": "bridged", "link": "br0" },
+
+  "nodes": [
+    {
+      "# Master node": null,
+      "primary": "node1",
+      "secondary": "192.0.2.10"
+    },
+
+    {
+      "primary": "node2",
+      "secondary": "192.0.2.11"
+    },
+
+    {
+      "primary": "node3",
+      "secondary": "192.0.2.12"
+    },
+
+    {
+      "primary": "node4",
+      "secondary": "192.0.2.13"
+    },
+
+    {
+      "primary": "node5",
+      "secondary": "192.0.2.14"
+    }
+  ],
+
+  "instances": [
+    { "name": "instance1" },
+    { "name": "instance2" },
+    { "name": "instance3" },
+    { "name": "instance4" },
+    { "name": "instance5" }
+  ],
+
+  "tests": {
+    "default": true,
+    "default-instance-tests": true,
+
+    "# NOTE: The tests below are disabled because they do not work": null,
+    "# properly in virtual clusters. Some could be made to work with": null,
+    "# a bit of work on the QA code.": null,
+
+    "cluster-burnin": false,
+    "cluster-exclusive-storage": false,
+    "cluster-reserved-lvs": false,
+    "env": false,
+    "haskell-confd": false,
+    "htools": false,
+    "instance-add-drbd-disk": false,
+    "instance-add-plain-disk": false,
+    "instance-export": false,
+    "instance-import": false,
+    "instance-modify": false,
+    "instance-recreate-disks": false,
+    "instance-remove-drbd-offline": false,
+    "instance-rename": false,
+    "exclusive-storage-instance-tests": false,
+    "test-jobqueue": false,
+
+    "job-list": true,
+
+    "# the end": null
+  },
+
+  "# vim: set syntax=javascript :": null
+}

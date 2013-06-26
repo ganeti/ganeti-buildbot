@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -e -u
+
+basecheck="fping -A -t 100 -B 1.0 -- $INSTANCE_NAME"
+
+if [[ -z "$INSTANCE_RUNNING" ]]; then
+  # Instance is not supposed to be running, so don't wait for too long
+  checkcmd="$basecheck"
+else
+  # Instance should run, but give it some more time to become available
+  checkcmd=$(cat <<-EOF
+  set -e -u;
+  for ((end=\$((\$(date +%s) + ${FPING_TIMEOUT:-60})), delay=0;
+        \$(date +%s) < end;
+        (delay < 10 ? ++delay : 0))); do
+    $basecheck && exit 0;
+    sleep \$delay;
+  done;
+  exit 1
+EOF
+  )
+fi
+
+if $MASTER_SSH $checkcmd; then
+  status=0
+else
+  status=$?
+fi
+
+if [[ -z "$INSTANCE_RUNNING" ]]; then
+  if [[ $status == 0 ]]; then
+    echo "Instance '$INSTANCE_NAME' is running when it shouldn't" >&2
+    exit 1
+  fi
+elif [[ $status != 0 ]]; then
+  echo "Instance '$INSTANCE_NAME' is not running when it should" >&2
+  exit 1
+fi
+
+exit 0

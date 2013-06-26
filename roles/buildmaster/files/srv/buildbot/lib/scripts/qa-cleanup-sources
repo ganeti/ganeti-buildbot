@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo Cleaning the Ganeti sources... >&2
+rm -rvf \
+  /usr/lib/python2.4/site-packages/ganeti/* \
+  /usr/lib/python2.5/site-packages/ganeti/* \
+  /usr/lib/python2.6/dist-packages/ganeti/* \
+  /usr/lib/python2.7/dist-packages/ganeti/* \
+  /usr/lib/ganeti/tools
+rm -vf /usr/sbin/gnt-* /usr/sbin/ganeti-*
