@@ -25,6 +25,13 @@ umask 0022
 
 declare -r BB_ROOT=/srv/buildbot
 
+# fix permissions of installed directories and files
+mkdir -p $BB_ROOT/masters/ganeti/incoming/{cur,new,tmp}
+chown -R buildbot:buildbot $BB_ROOT/masters/ganeti/incoming
+chmod 3770 $BB_ROOT/masters/ganeti/incoming/{cur,new,tmp}
+chmod 3770 $BB_ROOT/masters/ganeti/incoming
+
+
 for dir in $BB_ROOT/masters/*; do
   if test -d $dir/templates && ! test -L $dir/templates; then
     rm -vrf $dir/templates
