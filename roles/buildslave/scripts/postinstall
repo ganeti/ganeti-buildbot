@@ -50,14 +50,14 @@ case "$1" in
       python-pycurl \
       python-ipaddr \
       python-yaml \
-      python-paramiko \
-      python-mock
+      python-paramiko
 
     apt-get install -qq -y python-dev build-essential
 
     easy_install \
       logilab-astng==0.20.1 \
       logilab-common==0.50.3 \
+      mock==1.0.1 \
       pylint==0.21.1
 
     easy_install \
