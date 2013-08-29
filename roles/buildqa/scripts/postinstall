@@ -42,6 +42,7 @@ case "$1" in
       python-lxml \
       socat \
       fping \
+      patch \
       python-bitarray \
       python-ipaddr \
       python-paramiko \

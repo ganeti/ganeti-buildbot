@@ -197,6 +197,7 @@ case "$1" in
     python-lxml \
     python-paramiko \
     python-simplejson \
+    patch \
     qemu-img \
     socat
 
