@@ -2,6 +2,8 @@
 
 echo Cleaning the Ganeti sources... >&2
 rm -rvf \
+  /usr/share/ganeti/* \
+  /usr/lib/ganeti/* \
   /usr/lib/python2.4/site-packages/ganeti/* \
   /usr/lib/python2.5/site-packages/ganeti/* \
   /usr/lib/python2.6/dist-packages/ganeti/* \
