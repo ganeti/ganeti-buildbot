@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-su - buildbot -s /bin/sh \
-  -c "cd /srv/buildbot/slaves/unittests-fedora17-64 && buildslave start -q"
-
-exit 0
