@@ -21,13 +21,15 @@ set -e
 
 umask 0022
 
+readonly role="$1"
+
 # slack doesn't seem to define $HOME
 
 if [ -z "$HOME" ]; then
   export HOME=/root # yes, hardcoded
 fi
 
-case "$1" in
+case "$role" in
   buildqa.fedora*)
     yum install -q -y \
       openssh \
@@ -53,6 +55,23 @@ case "$1" in
 
     systemctl restart NetworkManager.service
     ;;
+
+  buildqa.wheezy*-kvm)
+     mkdir -p /srv/ganeti/file-storage
+     apt-get install -y qemu-kvm \
+       fping socat \
+       python-openssl \
+       python-ipaddr \
+       python-simplejson \
+       python-inotifyx \
+       python-bitarray \
+       python-paramiko \
+       python-pycurl \
+       python-pyparsing \
+       python-pyinotify \
+       kpartx
+     ;;
+
   *)
     echo "Unknown role '$1'" 1>&2
     exit 1

@@ -1,0 +1,95 @@
+{
+  "name": "qa-kvm",
+  "rename": "qa-kvm-rename",
+  "enabled-hypervisors": "kvm",
+
+  "hypervisor-parameters": {
+    "kvm": "kernel_path=/boot/vmlinuz-3.2.0-4-amd64,initrd_path=/boot/initrd.img-3.2.0-4-amd64",
+    "xen-pvm": "kernel_path=/boot/vmlinuz-3.2.0-4-amd64,initrd_path=/boot/initrd.img-3.2.0-4-amd64",
+    "xen-hvm": "kernel_path=/boot/vmlinuz-3.2.0-4-amd64,device_model=/bin/true"
+  },
+
+  "enabled-disk-templates": ["file"],
+  "os": "busybox",
+  "mem": "512M",
+  "maxmem": "1G",
+  "minmem": "512M",
+
+  "# Lists of disk sizes": null,
+  "disk": ["512M"],
+  "disk-growth": ["0"],
+
+  "# Instance policy specs": null,
+  "ispec_mem_size_max": 1024,
+  "ispec_disk_size_min": 512,
+
+  "master-netdev": "eth1",
+  "default-nicparams": { "mode": "bridged", "link": "br0" },
+
+  "nodes": [
+    {
+      "# Master node": null,
+      "primary": "snf-192771.vm.okeanos.grnet.gr",
+      "secondary": "192.168.0.1"
+    },
+    {
+      "primary": "snf-192805.vm.okeanos.grnet.gr",
+      "secondary": "192.168.0.2"
+    },
+    {
+      "primary": "snf-192809.vm.okeanos.grnet.gr",
+      "secondary": "192.168.0.3"
+    }
+  ],
+
+  "instances": [
+    {
+      "name": "kvm-instance1"
+    },
+    {
+      "name": "kvm-instance2"
+    },
+    {
+      "name": "kvm-instance3"
+    }
+  ],
+
+  "tests": {
+    "# Disable tests by default": null,
+    "default": false,
+
+    "env": true,
+    "os": true,
+    "tags": true,
+    "rapi": true,
+
+    "create-cluster": true,
+    "cluster-verify": true,
+    "cluster-info": true,
+    "cluster-command": true,
+    "cluster-copyfile": true,
+    "cluster-destroy": true,
+
+    "node-info": true,
+    "node-readd": true,
+
+    "instance-add-file": true,
+
+    "instance-list": true,
+    "instance-failover": true,
+    "instance-info": true,
+    "instance-modify": true,
+    "instance-reinstall": true,
+    "instance-rename": true,
+    "instance-reboot": true,
+    "instance-shutdown": true,
+    "instance-grow-disk": false,
+
+    "instance-device-hotplug": true,
+
+    "# Run instance tests with different cluster configurations": null,
+    "default-instance-tests": true,
+
+    "job-list": true
+  }
+}
