@@ -78,6 +78,7 @@
     "cluster-exclusive-storage": false,
     "cluster-reserved-lvs": false,
     "env": false,
+    "group-custom-ssh-port": false,
     "haskell-confd": false,
     "htools": false,
     "instance-add-drbd-disk": false,
