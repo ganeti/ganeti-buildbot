@@ -40,6 +40,7 @@ case "$1" in
       libghc6-json-dev \
       libghc6-text-dev \
       libghc6-vector-dev \
+      libghc6-zlib-dev \
       libpcre3-dev \
       hlint hscolour pandoc \
       graphviz socat qemu-utils \
@@ -71,6 +72,7 @@ case "$1" in
     fi
 
     cabal install --global \
+      blaze-builder==0.3.1.1 \
       network==2.3 \
       regex-pcre==0.94.2 \
       hinotify==0.3.2 \
@@ -95,6 +97,9 @@ case "$1" in
       test-framework==0.6.1 \
       test-framework-hunit==0.2.7 \
       test-framework-quickcheck2==0.2.12.3
+
+    cabal install --global \
+        base64-bytestring
     ;;
   buildslave.wheezy*)
     apt-get install -y \
@@ -114,7 +119,9 @@ case "$1" in
       libghc-vector-{dev,prof} \
       libghc-temporary-{dev,prof} \
       libghc-snap-server-{dev,prof} \
+      libghc6-zlib-dev \
       libpcre3 libpcre3-dev \
+      cabal-install \
       hscolour hlint pandoc \
       python-sphinx python-epydoc graphviz \
       openssl python-openssl \
@@ -128,6 +135,14 @@ case "$1" in
       socat fping fakeroot \
       shelltestrunner \
       pylint
+
+    # Update cabal, unless we have done so in the last 3 days
+    if [ ! -f $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -o -n "$(find $HOME/.cabal -path $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -mtime +2)" ]; then
+      cabal update
+    fi
+
+    cabal install --global \
+        base64-bytestring
     ;;
   buildslave.ubuntu1304*)
     apt-get install -y \
@@ -148,6 +163,7 @@ case "$1" in
       libghc-temporary-{dev,prof} \
       libghc-snap-server-{dev,prof} \
       libpcre3 libpcre3-dev \
+      libghc-zlib-dev libghc-base64-bytestring-dev \
       hscolour hlint pandoc \
       python-sphinx python-epydoc graphviz \
       openssl python-openssl \
@@ -202,6 +218,7 @@ case "$1" in
     qemu-img \
     socat
 
+    # Update cabal, unless we have done so in the last 3 days
     if [ ! -f $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -o -n "$(find $HOME/.cabal -path $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -mtime +2)" ]; then
       cabal update
     fi
@@ -219,6 +236,9 @@ case "$1" in
     cabal install --global \
       temporary==1.1.2.3 \
       test-framework-quickcheck2
+
+    cabal install --global \
+        base64-bytestring zlib
     ;;
   *)
     echo "Unknown role '$1'" 1>&2
