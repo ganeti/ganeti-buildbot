@@ -32,7 +32,7 @@
             Order deny,allow
             Allow from all
         </Proxy>
-        ProxyPass /      http://127.0.0.1:8010/ retry=0
+        ProxyPass /ganeti/      http://127.0.0.1:8010/ retry=0
     </IfModule>
 
     ErrorLog ${APACHE_LOG_DIR}/error.log
