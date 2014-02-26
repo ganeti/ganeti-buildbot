@@ -82,6 +82,7 @@ case "$1" in
       crypto==4.2.4 \
       MonadCatchIO-transformers==0.2.2.0 \
       mtl==2.0.1.0 \
+      lifted-base==0.2.1.1 \
       hashable==1.1.2.0 \
       case-insensitive==0.3 \
       parsec==3.0.1 \
@@ -142,7 +143,9 @@ case "$1" in
     fi
 
     cabal install --global \
-        base64-bytestring
+        base64-bytestring \
+        'lifted-base>=0.1.2'
+
     ;;
   buildslave.ubuntu1304*)
     apt-get install -y \
@@ -161,6 +164,7 @@ case "$1" in
       libghc-attoparsec-{dev,prof} \
       libghc-vector-{dev,prof} \
       libghc-temporary-{dev,prof} \
+      libghc-lifted-base-{dev,prof} \
       libghc-snap-server-{dev,prof} \
       libpcre3 libpcre3-dev \
       libghc-zlib-dev libghc-base64-bytestring-dev \
@@ -238,7 +242,8 @@ case "$1" in
       test-framework-quickcheck2
 
     cabal install --global \
-        base64-bytestring zlib
+        base64-bytestring zlib \
+        lifted-base==0.2.1.1
     ;;
   *)
     echo "Unknown role '$1'" 1>&2
