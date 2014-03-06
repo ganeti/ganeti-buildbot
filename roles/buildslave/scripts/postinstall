@@ -144,6 +144,7 @@ case "$1" in
 
     cabal install --global \
         base64-bytestring \
+        lens-3.10.2 \
         'lifted-base>=0.1.2'
 
     ;;
@@ -164,6 +165,7 @@ case "$1" in
       libghc-attoparsec-{dev,prof} \
       libghc-vector-{dev,prof} \
       libghc-temporary-{dev,prof} \
+      libghc-lens-{dev,prof} \
       libghc-lifted-base-{dev,prof} \
       libghc-snap-server-{dev,prof} \
       libpcre3 libpcre3-dev \
@@ -243,6 +245,7 @@ case "$1" in
 
     cabal install --global \
         base64-bytestring zlib \
+        lens-3.10.2 \
         lifted-base==0.2.1.1
     ;;
   *)
