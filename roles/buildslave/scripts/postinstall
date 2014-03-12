@@ -75,6 +75,45 @@ case "$1" in
         'lifted-base>=0.1.2'
 
     ;;
+  buildslave.jessie*)
+    apt-get install -y \
+      autoconf automake \
+      ghc ghc-haddock \
+      libghc-network-{dev,prof} \
+      libghc-test-framework{,-hunit,-quickcheck2}-{dev,prof} \
+      libghc-json-{dev,prof} \
+      libghc-curl-{dev,prof} \
+      libghc-hinotify-{dev,prof} \
+      libghc-parallel-{dev,prof} \
+      libghc-utf8-string-{dev,prof} \
+      libghc-hslogger-{dev,prof} \
+      libghc-crypto-{dev,prof} \
+      libghc-regex-pcre-{dev,prof} \
+      libghc-attoparsec-{dev,prof} \
+      libghc-vector-{dev,prof} \
+      libghc-temporary-{dev,prof} \
+      libghc-base64-bytestring-{dev,prof} \
+      libghc-lifted-base-{dev,prof} \
+      libghc-lens-{dev,prof} \
+      libghc-snap-server-{dev,prof} \
+      libghc-zlib-dev \
+      libpcre3 libpcre3-dev \
+      cabal-install \
+      hscolour hlint pandoc \
+      python-sphinx python-epydoc graphviz \
+      openssl python-openssl \
+      python-pyparsing python-simplejson \
+      python-pyinotify python-pycurl \
+      python-paramiko python-yaml \
+      python-bitarray python-ipaddr \
+      python-mock \
+      qemu-utils \
+      python-coverage pep8 \
+      socat fping fakeroot \
+      shelltestrunner \
+      pylint
+
+    ;;
   buildslave.ubuntu1304*)
     apt-get install -y \
       autoconf automake \

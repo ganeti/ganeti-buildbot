@@ -49,6 +49,9 @@ case "$1" in
   buildslave.wheezy*)
     apt-get install -qq -y buildbot-slave
     ;;
+  buildslave.jessie*)
+    apt-get install -qq -y buildbot-slave
+    ;;
   buildslave.ubuntu*)
     apt-get install -qq -y buildbot-slave
     ;;
