@@ -89,6 +89,7 @@
     "instance-recreate-disks": false,
     "instance-remove-drbd-offline": false,
     "instance-rename": false,
+    "instance-communication": false,
     "exclusive-storage-instance-tests": false,
     "test-jobqueue": false,
 
