@@ -95,6 +95,8 @@
 
     "job-list": true,
 
+    "jobqueue-performance": false,
+
     "# the end": null
   },
 
