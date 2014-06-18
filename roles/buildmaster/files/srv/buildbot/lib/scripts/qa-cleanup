@@ -3,6 +3,7 @@
 set -e -u
 
 process_re='^(ganeti-.*|gnt-.*|kvm|socat|import-export)$'
+process_f_re='.*/ganeti/jqueue/exec.py'
 
 # Do this before killing processes, so ganeti-watcher won't restart daemons or
 # instances
@@ -14,6 +15,12 @@ for dir in /var/lib/ganeti /srv/ganeti/vcluster; do
 done
 
 echo Killing daemons and other processes... >&2
+
+while pgrep -f "$process_f_re"; do
+  pkill -f -9 "$process_f_re" || :
+  sleep 1
+done
+
 while pgrep "$process_re"; do
   pkill -9 "$process_re" || :
   sleep 1
