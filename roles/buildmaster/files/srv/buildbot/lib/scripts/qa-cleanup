@@ -10,7 +10,7 @@ process_f_re='.*/ganeti/jqueue/exec.py'
 for dir in /var/lib/ganeti /srv/ganeti/vcluster; do
   if [[ -e $dir ]]; then
     echo "Cleaning up $dir..." >&2
-    rm -rvf $dir/*
+    rm -rvf $dir
   fi
 done
 
