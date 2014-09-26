@@ -47,6 +47,7 @@ case "$1" in
       libghc-vector-{dev,prof} \
       libghc-temporary-{dev,prof} \
       libghc-snap-server-{dev,prof} \
+      libghc-psqueue-{dev,prof} \
       libghc6-zlib-dev \
       libpcre3 libpcre3-dev \
       cabal-install \
@@ -96,6 +97,7 @@ case "$1" in
       libghc-lifted-base-{dev,prof} \
       libghc-lens-{dev,prof} \
       libghc-snap-server-{dev,prof} \
+      libghc-psqueue-{dev,prof} \
       libghc-zlib-dev \
       libpcre3 libpcre3-dev \
       cabal-install \
@@ -134,6 +136,7 @@ case "$1" in
       libghc-lens-{dev,prof} \
       libghc-lifted-base-{dev,prof} \
       libghc-snap-server-{dev,prof} \
+      libghc-psqueue-{dev,prof} \
       libpcre3 libpcre3-dev \
       libghc-zlib-dev libghc-base64-bytestring-dev \
       hscolour hlint pandoc \
@@ -202,6 +205,7 @@ case "$1" in
       hscolour==1.20.3 \
       hslogger==1.1.4 \
       snap-server==0.8.1 \
+      PSQueue==1.1 \
       quickcheck==2.5.1.1 \
       shelltestrunner==1.3.1
 
