@@ -30,6 +30,7 @@ case "$1" in
     yum install -q -y python-devel python-crypto pyOpenSSL zope
     ;;
   *)
+    apt-get update
     apt-get install -qq -y vim make git bash-completion
     apt-get install -qq -y python-twisted
     apt-get install -qq -y python-setuptools
@@ -47,12 +48,15 @@ case "$1" in
     fi
     ;;
   buildslave.wheezy*)
+    apt-get update
     apt-get install -qq -y buildbot-slave
     ;;
   buildslave.jessie*)
+    apt-get update
     apt-get install -qq -y buildbot-slave
     ;;
   buildslave.ubuntu*)
+    apt-get update
     apt-get install -qq -y buildbot-slave
     ;;
   buildslave.fedora*)

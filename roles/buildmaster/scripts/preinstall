@@ -21,6 +21,8 @@ set -e
 
 export DEBIAN_FRONTEND=noninteractive
 
+apt-get update
+
 apt-get install -y vim make git bash-completion
 
 apt-get install -y buildbot

@@ -58,6 +58,7 @@ case "$role" in
 
   buildqa.wheezy*-kvm)
      mkdir -p /srv/ganeti/file-storage
+     apt-get update
      apt-get install -y qemu-kvm \
        fping socat \
        python-openssl \

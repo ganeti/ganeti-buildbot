@@ -30,6 +30,7 @@ fi
 
 case "$1" in
   buildslave.wheezy*)
+    apt-get update
     apt-get install -y \
       autoconf automake \
       ghc ghc-haddock \
@@ -77,6 +78,7 @@ case "$1" in
 
     ;;
   buildslave.jessie*)
+    apt-get update
     apt-get install -y \
       autoconf automake \
       ghc ghc-haddock \
@@ -117,6 +119,7 @@ case "$1" in
 
     ;;
   buildslave.ubuntu1304*)
+    apt-get update
     apt-get install -y \
       autoconf automake \
       ghc ghc-haddock \
