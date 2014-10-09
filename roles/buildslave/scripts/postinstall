@@ -63,8 +63,12 @@ case "$1" in
       qemu-utils \
       python-coverage pep8 \
       socat fping fakeroot \
-      shelltestrunner \
-      pylint
+      shelltestrunner
+
+    easy_install \
+      logilab-astng==0.24.1 \
+      logilab-common==0.58.3 \
+      pylint==0.26.0
 
     # Update cabal, unless we have done so in the last 3 days
     if [ ! -f $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -o -n "$(find $HOME/.cabal -path $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -mtime +2)" ]; then
