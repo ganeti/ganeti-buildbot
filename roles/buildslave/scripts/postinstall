@@ -187,6 +187,7 @@ case "$1" in
     pyOpenSSL \
     pyparsing \
     python-bitarray \
+    python-coverage \
     python-inotify \
     python-mock \
     python-ipaddr \
