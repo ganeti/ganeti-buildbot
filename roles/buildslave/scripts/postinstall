@@ -194,6 +194,7 @@ case "$1" in
     python-yaml \
     python-lxml \
     python-paramiko \
+    python-pep8 \
     python-simplejson \
     patch \
     zlib-devel \
