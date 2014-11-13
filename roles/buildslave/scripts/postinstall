@@ -31,7 +31,7 @@ fi
 case "$1" in
   buildslave.wheezy*)
     apt-get update
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
       autoconf automake \
       ghc ghc-haddock \
       libghc-network-{dev,prof} \
@@ -83,7 +83,7 @@ case "$1" in
     ;;
   buildslave.jessie*)
     apt-get update
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
       autoconf automake \
       ghc ghc-haddock \
       libghc-network-{dev,prof} \
@@ -124,7 +124,7 @@ case "$1" in
     ;;
   buildslave.ubuntu1304*)
     apt-get update
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
       autoconf automake \
       ghc ghc-haddock \
       libghc-network-{dev,prof} \
@@ -159,7 +159,7 @@ case "$1" in
       socat fping fakeroot \
       shelltestrunner
 
-    apt-get install -qq -y python-dev build-essential
+    apt-get install -qq -y --no-install-recommends python-dev build-essential
 
     easy_install \
       sphinx==1.1.3 \
