@@ -146,6 +146,7 @@ case "$1" in
       libghc-psqueue-{dev,prof} \
       libpcre3 libpcre3-dev \
       libghc-zlib-dev libghc-base64-bytestring-dev \
+      cabal-install \
       hscolour hlint pandoc \
       python-sphinx python-epydoc graphviz \
       openssl python-openssl \
