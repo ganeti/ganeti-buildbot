@@ -52,7 +52,7 @@ case "$1" in
       libghc6-zlib-dev \
       libpcre3 libpcre3-dev \
       cabal-install \
-      hscolour hlint pandoc \
+      happy hscolour pandoc \
       python-sphinx python-epydoc graphviz \
       openssl python-openssl \
       python-pyparsing python-simplejson \
@@ -78,7 +78,8 @@ case "$1" in
     cabal install --global \
         base64-bytestring \
         lens-3.10.2 \
-        'lifted-base>=0.1.2'
+        'lifted-base>=0.1.2' \
+        'hlint>=1.9.12'
 
     ;;
   buildslave.jessie*)
@@ -107,7 +108,7 @@ case "$1" in
       libghc-zlib-dev \
       libpcre3 libpcre3-dev \
       cabal-install \
-      hscolour hlint pandoc \
+      happy hscolour pandoc \
       python-sphinx python-epydoc graphviz \
       openssl python-openssl \
       python-pyparsing python-simplejson \
@@ -120,6 +121,14 @@ case "$1" in
       socat fping fakeroot \
       shelltestrunner \
       pylint
+
+    # Update cabal, unless we have done so in the last 3 days
+    if [ ! -f $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -o -n "$(find $HOME/.cabal -path $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -mtime +2)" ]; then
+      cabal update
+    fi
+
+    cabal install --global \
+        'hlint>=1.9.12'
 
     ;;
   buildslave.ubuntu1304*)
@@ -147,7 +156,7 @@ case "$1" in
       libpcre3 libpcre3-dev \
       libghc-zlib-dev libghc-base64-bytestring-dev \
       cabal-install libghc-cabal-dev \
-      hscolour hlint pandoc \
+      happy hscolour pandoc \
       python-sphinx python-epydoc graphviz \
       openssl python-openssl \
       python-pyparsing python-simplejson \
@@ -168,6 +177,15 @@ case "$1" in
       logilab-astng==0.23.0 \
       pylint==0.25.0 \
       pep8==1.2
+
+    # Update cabal, unless we have done so in the last 3 days
+    if [ ! -f $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -o -n "$(find $HOME/.cabal -path $HOME/.cabal/packages/hackage.haskell.org/00-index.tar -mtime +2)" ]; then
+      cabal update
+    fi
+
+    cabal install --global \
+        'hlint>=1.9.12'
+
     ;;
   buildslave.fedora*)
     yum install -q -y \
@@ -182,7 +200,7 @@ case "$1" in
     ghc-regex-pcre-devel ghc-hinotify-devel \
     ghc-vector-devel \
     graphviz \
-    hlint \
+    happy \
     libcurl libcurl-devel \
     pandoc \
     pyOpenSSL \
@@ -226,7 +244,8 @@ case "$1" in
     cabal install --global \
         base64-bytestring zlib \
         lens-3.10.2 \
-        lifted-base==0.2.1.1
+        lifted-base==0.2.1.1 \
+        'hlint>=1.9.12'
     ;;
   *)
     echo "Unknown role '$1'" 1>&2
