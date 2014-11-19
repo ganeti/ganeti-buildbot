@@ -51,7 +51,7 @@ case "$1" in
       libghc-psqueue-{dev,prof} \
       libghc6-zlib-dev \
       libpcre3 libpcre3-dev \
-      cabal-install \
+      cabal-install libghc-cabal-dev \
       happy hscolour pandoc \
       python-sphinx python-epydoc graphviz \
       openssl python-openssl \
@@ -107,7 +107,7 @@ case "$1" in
       libghc-psqueue-{dev,prof} \
       libghc-zlib-dev \
       libpcre3 libpcre3-dev \
-      cabal-install \
+      cabal-install libghc-cabal-dev \
       happy hscolour pandoc \
       python-sphinx python-epydoc graphviz \
       openssl python-openssl \
@@ -227,6 +227,7 @@ case "$1" in
     fi
 
     cabal install --global \
+      Cabal \
       attoparsec \
       crypto \
       curl==1.3.7 \
