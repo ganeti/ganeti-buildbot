@@ -173,9 +173,9 @@ case "$1" in
 
     easy_install \
       sphinx==1.1.3 \
-      logilab-common==0.57.1 \
-      logilab-astng==0.23.0 \
-      pylint==0.25.0 \
+      logilab-astng==0.24.1 \
+      logilab-common==0.58.3 \
+      pylint==0.26.0 \
       pep8==1.2
 
     # Update cabal, unless we have done so in the last 3 days
