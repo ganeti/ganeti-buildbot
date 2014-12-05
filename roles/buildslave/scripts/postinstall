@@ -232,7 +232,7 @@ case "$1" in
 
     cabal install --global \
       attoparsec \
-      crypto \
+      Crypto \
       curl==1.3.7 \
       hscolour==1.20.3 \
       hslogger==1.1.4 \
