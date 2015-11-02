@@ -17,6 +17,11 @@ for host; do
   rsync -av \
     root@$host:/var/log/ganeti/ $hostdir/var/log/ganeti/
 
+  # Collect the configuration information
+  mkdir -p $hostdir/var/lib/ganeti
+  rsync -av \
+    root@$host:/var/lib/ganeti/ $hostdir/var/lib/ganeti/
+
   # Also collect vcluster logs, if present
   if ssh root@$host test -d /srv/ganeti/vcluster; then
       mkdir -p $hostdir/srv/ganeti/vcluster
